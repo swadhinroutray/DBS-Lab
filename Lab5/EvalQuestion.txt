@@ -1,0 +1,26 @@
+1. For each warehouse display warehouse details along with number of orders shippedfrom it?
+2. Display the customer information along with number of orders which are ordered on 1st FEB 2020, if number of orders per customer on 1st feb 2020 is more than 2.
+
+
+INSERT INTO 
+
+1. select order_num,warehouse_num,city,Count(*) 
+from WAREHOUSE Natural join Shipment natural join ORDERS
+GROUP BY order_num,warehouse_num,city; 
+
+2.
+insert into ORDERS values(99421,'20-JAN-2019',1234,11000);
+insert into ORDERS values(99423,'20-JAN-2019',2345,11000);
+insert into ORDERS values(99424,'20-JAN-2019',2345,11000);
+
+insert into ORDERS values(99422,'20-JAN-2019',1234,1000);
+insert into ORDER_ITEMS VALUES(99421,94,1);
+insert into ORDER_ITEMS VALUES(99422,19,1);
+insert into ORDER_ITEMS VALUES(99423,19,1);
+insert into ORDER_ITEMS VALUES(99424,94,1);
+
+Select cust_num,cname,Count(*)
+FROM CUSTOMER NATURAL JOIN ORDERS
+WHERE odate = '20-JAN-2019'
+GROUP BY cust_num,cname
+HAVING COUNT(*)>2;
