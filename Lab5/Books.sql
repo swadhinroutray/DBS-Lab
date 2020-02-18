@@ -100,3 +100,11 @@ GROUP BY course_num,name)
 GROUP BY name;
 
 H. 
+Select publisher, count(publisher)
+from TEXT 
+group by publisher;
+
+I.
+select name from STUDENT
+where regno in 
+(select regno from ENROLL natural join BOOK_ADOPTION group by regno);
