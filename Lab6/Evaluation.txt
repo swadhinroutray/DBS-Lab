@@ -1,0 +1,26 @@
+1. Display the student details along with number of ICT department courses they have enrolled for 
+2. List all the departments which have adopted all books authored by XYZ author
+
+INSERT INTO COURSE VALUES(1004, 'Comp', 'CS');
+INSERT INTO ENROLL VALUES('1',1004);
+Select name, regno, countIT 
+from STUDENT, (SELECT count(*) as CountIT from STUDENT natural join Enroll natural join COURSE 
+ where dept = 'CS' );
+
+SELECT count(*) as CountIT from STUDENT natural join Enroll natural join COURSE 
+ group by name,dept
+ having dept = 'CS'; 
+
+Select name, regno, countIT 
+from STUDENT natural join COURSE C, (SELECT count(*) as CountIT from STUDENT natural join Enroll natural join COURSE 
+ group by name,dept
+ having dept = 'CS');
+
+ 2.
+   
+   
+    Select dept,author 
+    from COURSE natural join BOOK_ADOPTION natural join TEXT
+    where author ='MIT' 
+    group by dept,author
+    having count(*) >=(SELECT count(*) from TEXT WHERE author ='MIT');
