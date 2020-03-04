@@ -1,0 +1,8 @@
+CREATE OR REPLACE TRIGGER ACCIDENTTRIGGER
+AFTER INSERT ON ACCIDENT
+FOR EACH ROW
+BEGIN
+IF inserting THEN
+DBMS_ouput.put_line(:new.report_number || ' '||:new.acc_date||' '||:new.location );
+END IF;
+END;
