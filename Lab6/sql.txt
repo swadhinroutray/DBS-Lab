@@ -1,0 +1,155 @@
+create or replace function totalAccident (yr in number)
+return number is
+	total number(10) := 0;
+begin
+	select count(*) into total from accident
+	where EXTRACT(YEAR from accd_date) = yr;
+	return total;
+end;
+/
+create or replace procedure totalAccidentCaller (yr in number)
+as
+c number(10);
+begin
+	c := totalAccident(yr);
+	dbms_output.put_line('year' || yr || '  ' || c);
+end;
+/
+
+Create or replace trigger mytrig
+after insert on participated
+for each row
+declare 
+
+begin
+select driverid, name, address from person into a, b, c where driverid = :new.driver_id ;
+dbms_output.put_line)
+
+
+create or replace procedure p2 (did in varchar, yr in int)
+as total number;
+begin
+
+select sum(damage_amount)  into total    from participated p, accident a     where p.report_number = a.report_number and EXTRACT(YEAR FROM ACCD_DATE)= yr   group by driverid, accd_date       having driverid =  did; 
+dbms_output.put_line('total amount ' || to	tal);
+end;
+/
+
+
+select driverid, sum(damage_amount), accd_date   
+from participated p, accident a  
+where p.report_number = a.report_number 
+and EXTRACT(YEAR FROM ACCD_DATE)=2019  
+group by driverid, accd_date 
+having driverid = 18096 ; 
+
+
+
+
+
+
+insert into participated values      (18099, 'zpor', 6, 100000); 
+
+
+create or replace trigger mytrig
+AFTER INSERT ON PARTICIPATED
+FOR EACH ROW
+ENABLE
+BEGIN
+FOR item IN (select driverid, name from person where driverid = :new.driverid)
+LOOP
+DBMS_OUTPUT.PUT_LINE(item.driverid || ' Name : ' || item.name);
+end loop;
+end;
+/
+
+
+create or replace procedure p2
+as
+declare
+location varchar(20) := &location ;
+begin
+dbms_output.put_line(location);
+end
+/
+
+
+
+
+CREATE OR REPLACE PROCEDURE return_location(n IN varchar2)
+as
+rno INTEGER;
+ad DATE;
+da INTEGER;
+BEGIN
+select report_number INTO rno from participated natural join accident where location = n;
+select accd_date INTO ad from participated natural join accident where location = n;
+select damage_amount INTO da from participated natural join accident where location = n;
+
+for item in (select * from participated natural join accident where location = n;
+DBMS_OUTPUT.PUT_LINE('Report Number: '||rno||' Accident Date: '||ad||' Damage Amount: '||da||'.');
+END;
+/
+
+
+
+CREATE OR REPLACE PROCEDURE return_location(n IN varchar2)
+is
+BEGIN
+for item in (select * from participated natural join accident where location = n)
+loop
+DBMS_OUTPUT.PUT_LINE('Report Number: '|| item.report_number||' Accident Date: '||item.accd_date||' Damage Amount: '||item.damage_amount ||'.');
+end loop;
+END;
+/
+		
+create table t1
+(cname varchar(20),
+custno number(38),
+primary key(custno)
+)
+
+CREATE OR REPLACE PROCEDURE InsertCustomer                                         as 
+name varchar(20); 
+c varchar(30);
+
+begin
+for i in (select orderno, ordamt, custno from orders)
+loop        
+select cname into name from customer where i.custno = customer.custno;
+select city into c from customer where i.custno = customer.custno;
+
+if(i.ordamt >= 10000) then
+	insert into t1 values(name, i.custno, c);
+end if;
+end loop;                                      
+end;
+/ 
+
+
+create or replace function withdraw(ac in int, amt in int)
+return number
+is
+insideamt int;
+newamt int ;
+begin
+select wam into insideamt from bank where bank.custno = ac;
+newamt := insideamt - amt;
+if( insideamt - amt >= 0) then
+	update bank
+	set wam = insideamt - amt 
+	where custno = ac;
+	return newamt;
+else
+	DBMS_OUTPUT.PUT_LINE('not enough');
+end if;
+return insideamt;
+end;
+/
+SELECT orderno, ordamt
+ from orders natural join order_items
+group by orderno, ordamt 
+having sum(qty)>5
+
+
+

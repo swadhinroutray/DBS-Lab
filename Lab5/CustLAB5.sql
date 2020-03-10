@@ -1,33 +1,33 @@
 select c.cname
-from customer c
-where not exists (select d.city from customer d where c.custno=d.custno);	
+from CUSTOMER c
+where not exists (select d.city from CUSTOMER d where c.cust_num=d.cust_num);	
 
-select custno, cname , sum(ordamt)
-from customer natural join orders
-group by custno, cname 
-having sum(ordamt) = (select max(ordamt) from orders);
+select cust_num, cname , sum(ordamt)
+from CUSTOMER natural join ORDERS
+group by cust_num, cname 
+having sum(ordamt) = (select max(ordamt) from ORDERS);
 
-select o.orderno 
-from orders o
-where not exists (select orderno from shipment);
+select o.order_num 
+from ORDERS o
+where not exists (select order_num from SHIPMENT);
 
-select itemno
-from item
-where not exists (select itemno from order_items);
+select item_num
+from ITEM
+where not exists (select item_num from order_ITEMs);
 
-select * from (select count(custno) from orders natural join order_items group by custno order by count(custno) desc) where rownum=1;
+select * from (select count(cust_num) from ORDERS natural join ORDER_ITEMS group by cust_num order by count(cust_num) desc) where rownum=1;
 
-select orderno
-from orders
-where not exists (select orderno from shipment where shipdate='2019-JUL-08');
+select order_num
+from ORDERS
+where not exists (select order_num from SHIPMENT where shipdate='2019-JUL-08');
 
-select custno
-from orders
-where exists (select custno from shipment where shipdate='2019-JUL-08') and (select custno from shipment where shipdate='2019-JUL-04');
+select cust_num
+from ORDERS
+where exists (select cust_num from SHIPMENT where shipdate='2019-JUL-08') and (select cust_num from SHIPMENT where shipdate='2019-JUL-04');
 
 select c.*
-from customer c
-where not exists ((select orderno from orders where custno = c.custno) except
-	 (select orderno from orders natural join shipment where warehouseno=1337 and custno=c.custno));
+from CUSTOMER c
+where not exists ((select order_num from ORDERS where cust_num = c.cust_num) except
+	 (select order_num from ORDERS natural join SHIPMENT where warehouseno=974 and cust_num=c.cust_num));
 
-select * from (select count(custno) from orders group by custno order by count(custno) desc) where rownum=1;
+select * from (select count(cust_num) from ORDERS group by cust_num order by count(cust_num) desc) where rownum=1;

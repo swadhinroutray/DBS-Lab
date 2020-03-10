@@ -49,6 +49,8 @@ insert into orders values(77483,'20-JUN-2018',6785,10000);
 insert into orders values(34658,'28-FEB-2019',8936,100);
 insert into orders values(99436,'10-JUL-2019',9203,10500);
 
+insert into orders values(99432,'10-JUL-2019',9203,105000);
+
 insert into item values(22,980);
 insert into item values(65,759);
 insert into item values(93,970);
